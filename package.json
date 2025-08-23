@@ -1,0 +1,51 @@
+{
+  "name": "ecommerce-pro-starter",
+  "private": true,
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "dev": "rsbuild dev --open",
+    "build": "rsbuild build",
+    "build:with-strapi": "node scripts/fetch-strapi-content.js && rsbuild build",
+    "preview": "rsbuild preview",
+    "test": "jest",
+    "ts": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx --ignore-pattern dist",
+    "lint:fix": "eslint . --ext .ts,.tsx,.js,.jsx --ignore-pattern dist --fix",
+    "fetch-content": "node scripts/fetch-strapi-content.js"
+  },
+  "dependencies": {
+    "@dutchiesdk/ecommerce-extensions-sdk": "0.13.0",
+    "dotenv": "^17.2.1",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "react-shadow": "^20.6.0",
+    "styled-components": "^5.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@module-federation/rsbuild-plugin": "^0.15.0",
+    "@rsbuild/core": "^1.2.15",
+    "@rsbuild/plugin-image-compress": "^1.2.0",
+    "@rsbuild/plugin-react": "^1.1.1",
+    "@rsbuild/plugin-styled-components": "^1.3.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^12.1.5",
+    "@types/jest": "^30.0.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/styled-components": "^5.1.34",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.2.0",
+    "jest": "^30.0.3",
+    "jest-environment-jsdom": "^30.0.2",
+    "prettier": "^3.5.3",
+    "ts-jest": "^29.4.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.34.1"
+  }
+}

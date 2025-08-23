@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carousel_items",
+  "info": {
+    "singularName": "carousel-item",
+    "pluralName": "carousel-items",
+    "displayName": "Carousel Item",
+    "description": "Promotional carousel items for homepage"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["images"]
+    },
+    "link": {
+      "type": "component",
+      "repeatable": false,
+      "component": "navigation.link"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

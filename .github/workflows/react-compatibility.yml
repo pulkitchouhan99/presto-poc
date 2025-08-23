@@ -1,0 +1,44 @@
+name: React Compatibility
+
+on:
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  react-compatibility:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        include:
+          - react-version: '^17.0.0'
+            testing-library-react: '^12.1.5'
+            types-react: '^17.0.0'
+            types-react-dom: '^17.0.0'
+          - react-version: '^18.0.0'
+            testing-library-react: '^13.0.0'
+            types-react: '^18.0.0'
+            types-react-dom: '^18.0.0'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Install React ${{ matrix.react-version }} and compatible dependencies
+        run: |
+          npm install --force react@${{ matrix.react-version }} react-dom@${{ matrix.react-version }} @types/react@${{ matrix.types-react }} @types/react-dom@${{ matrix.types-react-dom }} @testing-library/react@${{ matrix.testing-library-react }}
+
+      - run: npm run ts
+
+      - run: npm run build
+
+      - run: npm run test

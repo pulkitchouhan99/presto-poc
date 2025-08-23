@@ -1,0 +1,47 @@
+import { RemoteModuleRegistry, createLazyRemoteBoundaryComponent } from '@dutchiesdk/ecommerce-extensions-sdk';
+
+const theme: RemoteModuleRegistry = {
+  // Store Front Components
+  StoreFrontHeader: createLazyRemoteBoundaryComponent(
+    () => import('./store-front/header')
+  ),
+  StoreFrontFooter: createLazyRemoteBoundaryComponent(
+    () => import('./store-front/footer')
+  ),
+  StoreFrontMeta: createLazyRemoteBoundaryComponent(
+    () => import('./store-front/meta')
+  ),
+  StoreFrontNavigation: createLazyRemoteBoundaryComponent(
+    () => import('./store-front/navigation')
+  ),
+  StoreFrontHero: createLazyRemoteBoundaryComponent(
+    () => import('./store-front/hero')
+  ),
+
+  // Carousel Interstitials
+  StoreFrontCarouselInterstitials: [
+    createLazyRemoteBoundaryComponent(
+      () => import('./components/carousel-interstitial')
+    ),
+  ],
+
+  // Routable Pages
+  RouteablePages: [
+    {
+      path: '/about',
+      component: createLazyRemoteBoundaryComponent(
+        () => import('./pages/about')
+      ),
+    },
+  ],
+
+  // Events
+  events: {
+    onAfterCheckout: (data) => {
+      console.log('Checkout completed:', data);
+      // Here you could send analytics to Strapi or other services
+    },
+  },
+};
+
+export default theme;

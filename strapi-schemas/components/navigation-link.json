@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_navigation_links",
+  "info": {
+    "displayName": "Link",
+    "icon": "link",
+    "description": "Navigation link component"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string",
+      "required": true
+    },
+    "url": {
+      "type": "string",
+      "required": true
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": ["_self", "_blank"],
+      "default": "_self"
+    },
+    "icon": {
+      "type": "string"
+    }
+  }
+}

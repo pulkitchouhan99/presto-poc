@@ -1,0 +1,104 @@
+name: Sync Partner Repositories
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  get-repos:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository == 'dutchie-pro-partners/ecommerce-pro-starter' }}
+    permissions:
+      contents: read
+      packages: read
+    outputs:
+      repos: ${{ steps.save-repos.outputs.all }}
+    steps:
+      - uses: actions/github-script@v7
+        id: list-repos
+        with:
+          github-token: ${{ secrets.DUTCHIE_BOT_PRO_PARTNERS_TOKEN }}
+          script: |
+            const excludeRepos = [
+              'ecommerce-pro-starter',
+              'dutchie-pro-the-grow-agency',
+              'dc-test-fork',
+              'dc-test-repo'
+            ];
+
+            try {
+              const { data: repos } = await github.rest.repos.listForOrg({
+                org: 'dutchie-pro-partners',
+                type: 'all',
+                per_page: 100
+              });
+
+              const repoNames = repos
+                .map(repo => repo.name)
+                .filter(name => !excludeRepos.includes(name))
+                .map(name => `dutchie-pro-partners/${name}`);
+
+              console.log('Repositories to sync:', repoNames);
+
+              return JSON.stringify(repoNames);
+            } catch (error) {
+              console.log('Error fetching repositories:', error);
+              throw error;
+            }
+
+      # https://github.com/orgs/community/discussions/160559
+      # JSON.stringify() returns a string with single quotes around the array;
+      # these must be stripped so that matrix can parse correctly
+      - id: save-repos
+        run: |
+          AS_STRING=${{ steps.list-repos.outputs.result }}
+          OUTPUT=${AS_STRING:1:${#AS_STRING}-2}
+          echo "ALL=$AS_STRING" >> $GITHUB_OUTPUT
+
+  sync-repos:
+    needs: get-repos
+    runs-on: ubuntu-latest
+    strategy:
+      # Continue to other repos even if one fails
+      fail-fast: false
+      matrix:
+        repo: ${{ fromJson(needs.get-repos.outputs.repos) }}
+
+    steps:
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ matrix.repo }}
+          path: target_repo
+          token: ${{ secrets.DUTCHIE_BOT_PRO_PARTNERS_TOKEN }}
+
+      - name: Configure Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Sync repository
+        working-directory: target_repo
+        run: |
+          # Add source repository as remote and fetch
+          git remote add source https://github.com/${{ github.repository }}
+          git fetch source main
+
+          # Attempt to rebase
+          if ! git rebase source/main; then
+            echo "Rebase failed for ${{ matrix.repo }} - there may be conflicts"
+            git rebase --abort
+            exit 1
+          fi
+
+          # Push the changes
+          git push origin main
+
+  # Add a no-op job that always succeeds for non-source repositories
+  skip-sync:
+    runs-on: ubuntu-latest
+    if: ${{ github.repository != 'dutchie-pro-partners/ecommerce-pro-starter' }}
+    steps:
+      - name: Skip sync
+        run: echo "Skipping sync as this is not the source repository"
