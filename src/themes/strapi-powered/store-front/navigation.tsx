@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge, useAsyncLoader } from '@dutchiesdk/ecommerce-extensions-sdk';
 
@@ -19,20 +18,20 @@ const CategoryList = styled.div`
   gap: 2rem;
   overflow-x: auto;
   padding: 0.5rem 0;
-  
+
   &::-webkit-scrollbar {
     height: 4px;
   }
-  
+
   &::-webkit-scrollbar-track {
     background: #f1f1f1;
   }
-  
+
   &::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 2px;
   }
-  
+
   @media (max-width: 768px) {
     gap: 1rem;
   }
@@ -49,12 +48,12 @@ const CategoryItem = styled.button`
   white-space: nowrap;
   transition: all 0.2s;
   border-radius: 4px;
-  
+
   &:hover {
     background-color: #e9ecef;
     color: #007bff;
   }
-  
+
   &:focus {
     outline: 2px solid #007bff;
     outline-offset: 2px;
@@ -85,7 +84,7 @@ const QuickLink = styled.button`
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s;
-  
+
   &:hover {
     background-color: #0056b3;
   }
@@ -129,35 +128,25 @@ const StoreFrontNavigation: RemoteBoundaryComponent = () => {
     <NavigationContainer>
       <NavigationContent>
         <CategoryList>
-          <CategoryItem onClick={() => actions.goToProductList({})}>
-            All Products
-          </CategoryItem>
-          {categories && categories.map(category => (
-            <CategoryItem
-              key={category.id}
-              onClick={() => handleCategoryClick(category.id, category.cname)}
-            >
-              {category.name}
-            </CategoryItem>
-          ))}
+          <CategoryItem onClick={() => actions.goToProductList({})}>All Products</CategoryItem>
+          {categories &&
+            categories.map((category) => (
+              <CategoryItem key={category.id} onClick={() => handleCategoryClick(category.id, category.cname)}>
+                {category.name}
+              </CategoryItem>
+            ))}
         </CategoryList>
-        
+
         <QuickLinks>
-          <QuickLink onClick={() => handleQuickLinkClick('specials')}>
-            Specials
-          </QuickLink>
-          <QuickLink onClick={() => handleQuickLinkClick('new')}>
-            New Arrivals
-          </QuickLink>
-          <QuickLink onClick={() => handleQuickLinkClick('brands')}>
-            All Brands
-          </QuickLink>
+          <QuickLink onClick={() => handleQuickLinkClick('specials')}>Specials</QuickLink>
+          <QuickLink onClick={() => handleQuickLinkClick('new')}>New Arrivals</QuickLink>
+          <QuickLink onClick={() => handleQuickLinkClick('brands')}>All Brands</QuickLink>
         </QuickLinks>
       </NavigationContent>
     </NavigationContainer>
   );
 };
 
-StoreFrontNavigation.DataBridgeVersion = 1;
+StoreFrontNavigation.DataBridgeVersion = '1';
 
 export default StoreFrontNavigation;
