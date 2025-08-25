@@ -17,8 +17,10 @@ const HeroSection = styled.section`
   background-color: #1a1a1a;
   color: white;
   text-align: center;
-  
-  ${props => props.backgroundImage && `
+
+  ${(props) =>
+    props.backgroundImage &&
+    `
     background-image: url(${props.backgroundImage});
     background-size: cover;
     background-position: center;
@@ -45,7 +47,7 @@ const HeroContent = styled.div`
 const HeroTitle = styled.h1`
   font-size: 3rem;
   margin-bottom: 1rem;
-  
+
   @media (max-width: 768px) {
     font-size: 2rem;
   }
@@ -64,18 +66,18 @@ const ContentSection = styled.section`
 
 const SectionRow = styled.div<{ layout?: 'text-left' | 'text-right' | 'centered' }>`
   display: grid;
-  grid-template-columns: ${props => 
-    props.layout === 'centered' ? '1fr' : '1fr 1fr'
-  };
+  grid-template-columns: ${(props) => (props.layout === 'centered' ? '1fr' : '1fr 1fr')};
   gap: 3rem;
   align-items: center;
   margin-bottom: 4rem;
-  
+
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
-  
-  ${props => props.layout === 'text-right' && `
+
+  ${(props) =>
+    props.layout === 'text-right' &&
+    `
     & > *:first-child {
       order: 2;
     }
@@ -89,8 +91,10 @@ const SectionRow = styled.div<{ layout?: 'text-left' | 'text-right' | 'centered'
       }
     }
   `}
-  
-  ${props => props.layout === 'centered' && `
+
+  ${(props) =>
+    props.layout === 'centered' &&
+    `
     text-align: center;
   `}
 `;
@@ -146,7 +150,7 @@ const TeamMember = styled.div`
   background-color: #f8f9fa;
   border-radius: 8px;
   transition: transform 0.2s;
-  
+
   &:hover {
     transform: translateY(-5px);
   }
@@ -193,17 +197,20 @@ const About: RemoteBoundaryComponent = () => {
     sections: [
       {
         title: 'Our Story',
-        content: 'Founded with a passion for quality cannabis products, we have been serving our community with dedication and expertise. Our journey began with a simple mission: to provide safe, high-quality cannabis products while educating our customers about their benefits.',
+        content:
+          'Founded with a passion for quality cannabis products, we have been serving our community with dedication and expertise. Our journey began with a simple mission: to provide safe, high-quality cannabis products while educating our customers about their benefits.',
         layout: 'text-left' as const,
       },
       {
         title: 'Our Mission',
-        content: 'We are committed to providing the highest quality cannabis products while maintaining the highest standards of customer service. We believe in transparency, education, and building lasting relationships with our community.',
+        content:
+          'We are committed to providing the highest quality cannabis products while maintaining the highest standards of customer service. We believe in transparency, education, and building lasting relationships with our community.',
         layout: 'centered' as const,
       },
       {
         title: 'Quality Promise',
-        content: 'Every product in our store is carefully selected and tested to ensure it meets our strict quality standards. We work directly with trusted growers and manufacturers who share our commitment to excellence.',
+        content:
+          'Every product in our store is carefully selected and tested to ensure it meets our strict quality standards. We work directly with trusted growers and manufacturers who share our commitment to excellence.',
         layout: 'text-right' as const,
       },
     ],
@@ -234,9 +241,7 @@ const About: RemoteBoundaryComponent = () => {
       <HeroSection backgroundImage={aboutData.hero.backgroundImage}>
         <HeroContent>
           <HeroTitle>{aboutData.hero.title}</HeroTitle>
-          {aboutData.hero.subtitle && (
-            <HeroSubtitle>{aboutData.hero.subtitle}</HeroSubtitle>
-          )}
+          {aboutData.hero.subtitle && <HeroSubtitle>{aboutData.hero.subtitle}</HeroSubtitle>}
         </HeroContent>
       </HeroSection>
 
@@ -248,10 +253,7 @@ const About: RemoteBoundaryComponent = () => {
               <SectionText>{section.content}</SectionText>
             </TextContent>
             {section.image && section.layout !== 'centered' && (
-              <SectionImage 
-                src={section.image.url} 
-                alt={section.image.alternativeText || section.title}
-              />
+              <SectionImage src={section.image.url} alt={section.image.alternativeText || section.title} />
             )}
           </SectionRow>
         ))}
@@ -264,9 +266,7 @@ const About: RemoteBoundaryComponent = () => {
             <TeamGrid>
               {aboutData.team.members.map((member, index) => (
                 <TeamMember key={index}>
-                  <MemberImage>
-                    {member.name.charAt(0)}
-                  </MemberImage>
+                  <MemberImage>{member.name.charAt(0)}</MemberImage>
                   <MemberName>{member.name}</MemberName>
                   <MemberRole>{member.role}</MemberRole>
                   {member.bio && <MemberBio>{member.bio}</MemberBio>}

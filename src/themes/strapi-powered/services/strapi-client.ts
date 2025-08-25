@@ -1,11 +1,5 @@
 import { defaultStrapiConfig, getStrapiURL } from '../config/strapi.config';
-import type { 
-  StrapiHeader, 
-  StrapiFooter, 
-  StrapiHero, 
-  StrapiCarouselItem,
-  StrapiAboutPage 
-} from '../data/strapi-types';
+import type { StrapiHeader, StrapiFooter, StrapiHero, StrapiCarouselItem } from '../data/strapi-types';
 
 // Strapi API response wrapper
 interface StrapiResponse<T> {
@@ -30,13 +24,13 @@ class StrapiClient {
 
   private async fetcher<T>(endpoint: string): Promise<T> {
     const url = getStrapiURL(`/api${endpoint}`);
-    
+
     const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         ...(this.config.apiToken && {
-          'Authorization': `Bearer ${this.config.apiToken}`
+          Authorization: `Bearer ${this.config.apiToken}`,
         }),
       },
       signal: AbortSignal.timeout(this.config.timeout),
@@ -52,9 +46,7 @@ class StrapiClient {
   // Fetch header content
   async getHeader(): Promise<StrapiHeader | null> {
     try {
-      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiHeader>>>(
-        '/header?populate=*'
-      );
+      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiHeader>>>('/header?populate=*');
       return response.data?.attributes || null;
     } catch (error) {
       console.error('Failed to fetch header:', error);
@@ -65,9 +57,7 @@ class StrapiClient {
   // Fetch footer content
   async getFooter(): Promise<StrapiFooter | null> {
     try {
-      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiFooter>>>(
-        '/footer?populate=*'
-      );
+      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiFooter>>>('/footer?populate=*');
       return response.data?.attributes || null;
     } catch (error) {
       console.error('Failed to fetch footer:', error);
@@ -78,9 +68,7 @@ class StrapiClient {
   // Fetch homepage hero section
   async getHomepageHero(): Promise<StrapiHero | null> {
     try {
-      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiHero>>>(
-        '/homepage-hero?populate=*'
-      );
+      const response = await this.fetcher<StrapiResponse<StrapiAttributes<StrapiHero>>>('/homepage-hero?populate=*');
       return response.data?.attributes || null;
     } catch (error) {
       console.error('Failed to fetch homepage hero:', error);
@@ -94,10 +82,12 @@ class StrapiClient {
       const response = await this.fetcher<StrapiResponse<Array<StrapiAttributes<StrapiCarouselItem>>>>(
         '/carousel-items?populate=*&sort=order'
       );
-      return response.data?.map(item => ({
-        id: item.id.toString(),
-        ...item.attributes
-      })) || [];
+      return (
+        response.data?.map((item) => ({
+          id: item.id.toString(),
+          ...item.attributes,
+        })) || []
+      );
     } catch (error) {
       console.error('Failed to fetch carousel items:', error);
       return [];
@@ -107,9 +97,7 @@ class StrapiClient {
   // Fetch page by ID or slug
   async getPage(idOrSlug: string): Promise<any | null> {
     try {
-      const response = await this.fetcher<StrapiResponse<StrapiAttributes<any>>>(
-        `/pages/${idOrSlug}?populate=*`
-      );
+      const response = await this.fetcher<StrapiResponse<StrapiAttributes<any>>>(`/pages/${idOrSlug}?populate=*`);
       return response.data?.attributes || null;
     } catch (error) {
       console.error('Failed to fetch page:', error);
@@ -120,13 +108,13 @@ class StrapiClient {
   // Fetch all pages
   async getPages(): Promise<any[]> {
     try {
-      const response = await this.fetcher<StrapiResponse<Array<StrapiAttributes<any>>>>(
-        '/pages?populate=*'
+      const response = await this.fetcher<StrapiResponse<Array<StrapiAttributes<any>>>>('/pages?populate=*');
+      return (
+        response.data?.map((item) => ({
+          id: item.id.toString(),
+          ...item.attributes,
+        })) || []
       );
-      return response.data?.map(item => ({
-        id: item.id.toString(),
-        ...item.attributes
-      })) || [];
     } catch (error) {
       console.error('Failed to fetch pages:', error);
       return [];
@@ -151,10 +139,4 @@ class StrapiClient {
   }
 }
 
-// Export singleton instance
 export const strapiClient = new StrapiClient();
-
-// This would be used in a build script:
-// import { strapiClient } from './services/strapi-client';
-// const content = await strapiClient.getAllContent();
-// Then write content to a file that the theme can import

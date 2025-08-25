@@ -4,36 +4,55 @@ import { mockStrapiContent } from '../data/strapi-types';
 import { strapiContent } from '../data/strapi-content';
 
 const FooterContainer = styled.footer`
-  background-color: #1a1a1a;
-  color: #ffffff;
-  padding: 3rem 0 1rem;
+  background-color: #000;
+  color: #fff;
+  padding: 4rem 0 2rem;
   margin-top: auto;
 `;
 
 const FooterContent = styled.div`
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
   padding: 0 2rem;
 `;
 
 const FooterTop = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-bottom: 2rem;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 4rem;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+`;
+
+const BrandSection = styled.div``;
+
+const BrandName = styled.h3`
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+`;
+
+const BrandDescription = styled.p`
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: #999;
+  max-width: 300px;
 `;
 
 const FooterSection = styled.div``;
 
-const FooterDescription = styled.div`
-  margin-bottom: 1rem;
-  color: #b0b0b0;
-`;
-
-const SectionTitle = styled.h3`
-  margin-bottom: 1rem;
-  font-size: 1.1rem;
+const SectionTitle = styled.h4`
+  font-size: 0.875rem;
   font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
 `;
 
 const LinkList = styled.ul`
@@ -43,60 +62,49 @@ const LinkList = styled.ul`
 `;
 
 const LinkItem = styled.li`
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
 `;
 
 const FooterLink = styled.a`
-  color: #b0b0b0;
+  color: #999;
   text-decoration: none;
+  font-size: 0.875rem;
   cursor: pointer;
   transition: color 0.2s;
 
   &:hover {
-    color: #ffffff;
-  }
-`;
-
-const SocialLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-
-const SocialLink = styled.a`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: #333;
-  border-radius: 50%;
-  color: #ffffff;
-  text-decoration: none;
-  transition: background-color 0.2s;
-
-  &:hover {
-    background-color: #007bff;
+    color: #fff;
   }
 `;
 
 const FooterBottom = styled.div`
   border-top: 1px solid #333;
-  padding-top: 1rem;
-  text-align: center;
-  color: #b0b0b0;
-  font-size: 0.875rem;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 `;
 
-const SocialIcon = ({ platform }: { platform: string }) => {
-  const icons: Record<string, string> = {
-    facebook: 'f',
-    twitter: 'X',
-    instagram: 'i',
-    linkedin: 'in',
-  };
-  return <span>{icons[platform] || platform[0].toUpperCase()}</span>;
-};
+const Copyright = styled.p`
+  font-size: 0.75rem;
+  color: #666;
+`;
+
+const SocialLinks = styled.div`
+  display: flex;
+  gap: 1.5rem;
+`;
+
+const SocialLink = styled.a`
+  color: #999;
+  transition: color 0.2s;
+
+  &:hover {
+    color: #fff;
+  }
+`;
 
 const StoreFrontFooter: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
@@ -110,9 +118,9 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
       } else {
         actions.goToProductList({});
       }
-    } else if (url === '/about' || url === '/careers' || url === '/terms' || url === '/faq') {
+    } else if (url === '/about' || url === '/careers' || url === '/terms') {
       actions.goToInfoPage();
-    } else if (url === '/contact') {
+    } else if (url === '/contact' || url === '/faq') {
       actions.goToStoreLocator();
     }
   };
@@ -121,24 +129,16 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
     <FooterContainer>
       <FooterContent>
         <FooterTop>
-          <FooterSection>
-            {footerData.description && <FooterDescription>{footerData.description}</FooterDescription>}
-            {footerData.socialLinks && (
-              <SocialLinks>
-                {footerData.socialLinks.map((social, index) => (
-                  <SocialLink key={index} href={social.url} target='_blank' rel='noopener noreferrer'>
-                    <SocialIcon platform={social.platform} />
-                  </SocialLink>
-                ))}
-              </SocialLinks>
-            )}
-          </FooterSection>
+          <BrandSection>
+            <BrandName>HARVEST</BrandName>
+            {footerData.description && <BrandDescription>{footerData.description}</BrandDescription>}
+          </BrandSection>
 
-          {footerData.sections?.map((section, index) => (
+          {footerData.sections?.map((section: any, index: number) => (
             <FooterSection key={index}>
               <SectionTitle>{section?.title}</SectionTitle>
               <LinkList>
-                {section?.links?.map((link) => (
+                {section?.links?.map((link: any) => (
                   <LinkItem key={link.id}>
                     <FooterLink onClick={() => handleLinkClick(link.url)}>{link.label}</FooterLink>
                   </LinkItem>
@@ -148,7 +148,25 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
           ))}
         </FooterTop>
 
-        {footerData.copyright && <FooterBottom>{footerData.copyright}</FooterBottom>}
+        <FooterBottom>
+          <Copyright>{footerData.copyright || '© 2024 Harvest Cannabis. All rights reserved.'}</Copyright>
+
+          {footerData.socialLinks && (
+            <SocialLinks>
+              {footerData.socialLinks.map((social: any, index: number) => (
+                <SocialLink
+                  key={index}
+                  href={social.url}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  aria-label={social.platform}
+                >
+                  {social.platform.charAt(0).toUpperCase() + social.platform.slice(1)}
+                </SocialLink>
+              ))}
+            </SocialLinks>
+          )}
+        </FooterBottom>
       </FooterContent>
     </FooterContainer>
   );

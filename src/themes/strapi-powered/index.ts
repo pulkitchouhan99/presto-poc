@@ -2,36 +2,20 @@ import { RemoteModuleRegistry, createLazyRemoteBoundaryComponent } from '@dutchi
 
 const theme: RemoteModuleRegistry = {
   // Store Front Components
-  StoreFrontHeader: createLazyRemoteBoundaryComponent(
-    () => import('./store-front/header')
-  ),
-  StoreFrontFooter: createLazyRemoteBoundaryComponent(
-    () => import('./store-front/footer')
-  ),
-  StoreFrontMeta: createLazyRemoteBoundaryComponent(
-    () => import('./store-front/meta')
-  ),
-  StoreFrontNavigation: createLazyRemoteBoundaryComponent(
-    () => import('./store-front/navigation')
-  ),
-  StoreFrontHero: createLazyRemoteBoundaryComponent(
-    () => import('./store-front/hero')
-  ),
+  StoreFrontHeader: createLazyRemoteBoundaryComponent(() => import('./store-front/header')),
+  StoreFrontFooter: createLazyRemoteBoundaryComponent(() => import('./store-front/footer')),
+  StoreFrontMeta: createLazyRemoteBoundaryComponent(() => import('./store-front/meta')),
+  // StoreFrontNavigation: createLazyRemoteBoundaryComponent(() => import('./store-front/navigation')),
+  StoreFrontHero: createLazyRemoteBoundaryComponent(() => import('./store-front/hero')),
 
   // Carousel Interstitials
-  StoreFrontCarouselInterstitials: [
-    createLazyRemoteBoundaryComponent(
-      () => import('./components/carousel-interstitial')
-    ),
-  ],
+  StoreFrontCarouselInterstitials: [createLazyRemoteBoundaryComponent(() => import('./components/carousel'))],
 
   // Routable Pages
   RouteablePages: [
     {
       path: '/about',
-      component: createLazyRemoteBoundaryComponent(
-        () => import('./pages/about')
-      ),
+      component: createLazyRemoteBoundaryComponent(() => import('./pages/about')),
     },
   ],
 
@@ -39,7 +23,6 @@ const theme: RemoteModuleRegistry = {
   events: {
     onAfterCheckout: (data) => {
       console.log('Checkout completed:', data);
-      // Here you could send analytics to Strapi or other services
     },
   },
 };

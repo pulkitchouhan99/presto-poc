@@ -43,6 +43,7 @@ export interface StrapiFooter {
 export interface StrapiHero {
   title: string;
   subtitle?: string;
+  eyebrow?: string;
   backgroundImage?: StrapiImage;
   backgroundColor?: string;
   ctaButtons?: Array<{
@@ -90,28 +91,25 @@ export interface StrapiAboutPage {
 
 // Mock data that simulates Strapi content
 // In production, this would be replaced with data fetched from your Strapi API
-// Example: 
+// Example:
 // const response = await fetch('https://your-strapi-api.com/api/header?populate=*');
 // const data = await response.json();
 export const mockStrapiContent = {
   header: {
     logo: {
       url: '/images/logo.png',
-      alternativeText: 'Company Logo',
+      alternativeText: 'HARVEST Cannabis',
     },
     navigation: {
       links: [
-        { id: 1, label: 'Shop', url: '/shop' },
-        { id: 2, label: 'About', url: '/about' },
-        { id: 3, label: 'Locations', url: '/locations' },
-        { id: 4, label: 'Contact', url: '/contact' },
+        { id: 1, label: 'ORDER ONLINE', url: '/order-online' },
+        { id: 2, label: 'ABOUT US', url: '/about-us' },
+        { id: 3, label: 'BLOGS', url: '/blogs' },
+        { id: 4, label: 'LATEST UPDATES', url: '/latest-updates' },
+        { id: 5, label: 'CONTACT US', url: '/contact-us' },
       ],
     },
-    ctaButton: {
-      label: 'Order Now',
-      url: '/shop',
-      variant: 'primary' as const,
-    },
+    ctaButton: null,
   } as StrapiHeader,
 
   footer: {
@@ -151,19 +149,16 @@ export const mockStrapiContent = {
   } as StrapiFooter,
 
   hero: {
-    title: 'Welcome to Premium Cannabis',
-    subtitle: 'Discover our curated selection of high-quality products',
-    backgroundColor: '#1a1a1a',
+    title: 'WELCOME TO\nPREMIUM\nCANNABIS',
+    subtitle:
+      "Welcome to Harvest Cannabis, your go-to source for premium cannabis in Santa Monica. Whether you're experienced or new to cannabis, we offer top-quality products and friendly service.",
+    eyebrow: 'Premium Cannabis Retailer',
+    backgroundColor: '#fafafa',
     ctaButtons: [
       {
-        label: 'Shop Now',
+        label: 'SHOP NOW',
         url: '/shop',
         variant: 'primary' as const,
-      },
-      {
-        label: 'Learn More',
-        url: '/about',
-        variant: 'outline' as const,
       },
     ],
   } as StrapiHero,
