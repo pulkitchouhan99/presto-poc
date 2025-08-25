@@ -37,11 +37,12 @@ async function fetchStrapiContent() {
     };
 
     // Fetch all content - using populate=* for now
-    const [headerRes, footerRes, heroRes, carouselRes] = await Promise.all([
+    const [headerRes, footerRes, heroRes, carouselRes, introRes] = await Promise.all([
       fetchFromStrapi('/header?populate=*'),
       fetchFromStrapi('/footer?populate=*'),
       fetchFromStrapi('/homepage-hero?populate=*'),
-      fetchFromStrapi('/carousel-items?populate=*&sort=order')
+      fetchFromStrapi('/carousel-items?populate=*&sort=order'),
+      fetchFromStrapi('/intro-sections?populate=*')
     ]);
 
     // Transform Strapi responses to match our types
@@ -53,7 +54,8 @@ async function fetchStrapiContent() {
       carousel: carouselRes.data?.map(item => ({
         id: item.id.toString(),
         ...item
-      })) || []
+      })) || [],
+      introSection: introRes.data?.[0] || null // Get first intro section
     };
 
     // Generate TypeScript file with fetched content
@@ -67,6 +69,7 @@ export const strapiContent = ${JSON.stringify(content, null, 2)} as {
   footer: StrapiFooter | null;
   hero: StrapiHero | null;
   carousel: StrapiCarouselItem[];
+  introSection: any | null;
 };
 
 // Export fetched content

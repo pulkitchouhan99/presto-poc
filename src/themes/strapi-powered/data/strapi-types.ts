@@ -16,9 +16,8 @@ export interface StrapiLink {
 
 export interface StrapiHeader {
   logo: StrapiImage;
-  navigation: {
-    links: StrapiLink[];
-  };
+  navigation: StrapiLink[];
+
   ctaButton?: {
     label: string;
     url: string;
@@ -100,17 +99,16 @@ export const mockStrapiContent = {
       url: '/images/logo.png',
       alternativeText: 'HARVEST Cannabis',
     },
-    navigation: {
-      links: [
-        { id: 1, label: 'ORDER ONLINE', url: '/order-online' },
-        { id: 2, label: 'ABOUT US', url: '/about-us' },
-        { id: 3, label: 'BLOGS', url: '/blogs' },
-        { id: 4, label: 'LATEST UPDATES', url: '/latest-updates' },
-        { id: 5, label: 'CONTACT US', url: '/contact-us' },
-      ],
-    },
+    navigation: [
+      { id: 1, label: 'ORDER ONLINE', url: '/order-online' },
+      { id: 2, label: 'ABOUT US', url: '/about-us' },
+      { id: 3, label: 'BLOGS', url: '/blogs' },
+      { id: 4, label: 'LATEST UPDATES', url: '/latest-updates' },
+      { id: 5, label: 'CONTACT US', url: '/contact-us' },
+    ],
+
     ctaButton: null,
-  } as StrapiHeader,
+  },
 
   footer: {
     description: 'Your trusted cannabis dispensary',
@@ -191,4 +189,31 @@ export const mockStrapiContent = {
       },
     },
   ] as StrapiCarouselItem[],
+
+  // Intro/Welcome Section
+  introSection: {
+    type: 'intro',
+    title: 'WELCOME TO HARVEST CANNABIS, YOUR TRUSTED CANNABIS DISPENSARY OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.',
+    content: `At Harvest Cannabis, we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to creating options, and crafting a premium selection of flowers, edibles, concentrates and wellness solutions to enhance your lifestyle. One of the key measures of our success is the loyalty and trust our clients place in us, which is why your staff of our certified licensed cannabis consultants. Santa Monica is the preferred choice for cannabis connoisseurs.`,
+    images: [
+      {
+        url: '/images/products-1.jpg',
+        alternativeText: 'Cannabis products display',
+      },
+      {
+        url: '/images/products-2.jpg', 
+        alternativeText: 'Premium cannabis selection',
+      },
+    ],
+    ctaButton: {
+      label: 'KNOW MORE US →',
+      url: '/about',
+      variant: 'outline',
+    },
+    layout: 'images-bottom',
+    titleStyle: 'large',
+    contentAlignment: 'left',
+    backgroundColor: '#ffffff',
+    padding: 'large',
+  },
 };

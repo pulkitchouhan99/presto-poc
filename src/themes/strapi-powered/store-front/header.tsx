@@ -185,6 +185,7 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
   const [scrolled, setScrolled] = useState(false);
   const headerData = strapiContent?.header || mockStrapiContent.header;
+  console.log('🚀 ~ StoreFrontHeader ~ headerData:', headerData);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -228,7 +229,7 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
         </Logo>
 
         <Navigation>
-          {headerData?.navigation?.links?.map((link: StrapiLink) => (
+          {headerData?.navigation?.map((link: StrapiLink) => (
             <NavLink key={link.id} onClick={() => handleNavClick(link.url)}>
               {link.label}
             </NavLink>

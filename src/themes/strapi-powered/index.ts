@@ -9,7 +9,10 @@ const theme: RemoteModuleRegistry = {
   StoreFrontHero: createLazyRemoteBoundaryComponent(() => import('./store-front/hero')),
 
   // Carousel Interstitials
-  StoreFrontCarouselInterstitials: [createLazyRemoteBoundaryComponent(() => import('./components/carousel'))],
+  StoreFrontCarouselInterstitials: [
+    createLazyRemoteBoundaryComponent(() => import('./components/intro-interstitial')),
+    createLazyRemoteBoundaryComponent(() => import('./components/carousel')),
+  ],
 
   // Routable Pages
   RouteablePages: [

@@ -407,12 +407,94 @@ export const strapiContent = {
         }
       ]
     }
-  ]
+  ],
+  "introSection": {
+    "id": 3,
+    "documentId": "x090fa1z0sksyc7deanqt34i",
+    "title": "WELCOME TO HARVEST CANNABIS, YOUR TRUSTED CANNABIS DISPENSARY OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.",
+    "content": [
+      {
+        "type": "paragraph",
+        "children": [
+          {
+            "type": "text",
+            "text": "At Harvest Cannabis",
+            "bold": true
+          },
+          {
+            "type": "text",
+            "text": ", we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to curating, delivering, and scaling a premium selection of flowers, edibles, and concentrates, ensuring the utmost satisfaction for our customers. We believe the truest measure of our success is the loyalty and trust our clients place in us, which is why over half of our visitors become repeat customers. Join us and experience why Harvest of Santa Monica is the preferred choice for cannabis connoisseurs."
+          }
+        ]
+      }
+    ],
+    "layout": "images-bottom",
+    "titleStyle": "small",
+    "contentAlignment": "left",
+    "backgroundColor": "#ffffff",
+    "padding": null,
+    "createdAt": "2025-08-25T11:14:06.188Z",
+    "updatedAt": "2025-08-25T11:34:36.739Z",
+    "publishedAt": "2025-08-25T11:34:36.750Z",
+    "images": [
+      {
+        "id": 14,
+        "documentId": "pco49bb4rax70npn3lifar6c",
+        "name": "6712bccf5cec05d78d86e295_Harvest-Of-Santa-Monica-Store-(4)1..2.avif",
+        "alternativeText": null,
+        "caption": null,
+        "width": null,
+        "height": null,
+        "formats": null,
+        "hash": "6712bccf5cec05d78d86e295_Harvest_Of_Santa_Monica_Store_4_1_2_91346362c9",
+        "ext": ".avif",
+        "mime": "image/avif",
+        "size": 25.75,
+        "url": "/uploads/6712bccf5cec05d78d86e295_Harvest_Of_Santa_Monica_Store_4_1_2_91346362c9.avif",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2025-08-25T11:12:13.871Z",
+        "updatedAt": "2025-08-25T11:12:13.871Z",
+        "publishedAt": "2025-08-25T11:12:13.871Z"
+      },
+      {
+        "id": 13,
+        "documentId": "tqaow6ddh5wflil1seyq4pn1",
+        "name": "6712bccf7b1e01b2371351f2_Harvest-Of-Santa-Monica-Store-(63)1.3.avif",
+        "alternativeText": null,
+        "caption": null,
+        "width": null,
+        "height": null,
+        "formats": null,
+        "hash": "6712bccf7b1e01b2371351f2_Harvest_Of_Santa_Monica_Store_63_1_3_676e67e0b0",
+        "ext": ".avif",
+        "mime": "image/avif",
+        "size": 20.89,
+        "url": "/uploads/6712bccf7b1e01b2371351f2_Harvest_Of_Santa_Monica_Store_63_1_3_676e67e0b0.avif",
+        "previewUrl": null,
+        "provider": "local",
+        "provider_metadata": null,
+        "createdAt": "2025-08-25T11:12:00.464Z",
+        "updatedAt": "2025-08-25T11:12:00.464Z",
+        "publishedAt": "2025-08-25T11:12:00.464Z"
+      }
+    ],
+    "ctaButton": [
+      {
+        "id": 18,
+        "label": "KNOW MORE US →",
+        "url": "/about",
+        "variant": "outline"
+      }
+    ]
+  }
 } as {
   header: StrapiHeader | null;
   footer: StrapiFooter | null;
   hero: StrapiHero | null;
   carousel: StrapiCarouselItem[];
+  introSection: any | null;
 };
 
 // Export fetched content

@@ -70,11 +70,11 @@ const ScrollContainer = styled.div`
 const StickyCard = styled.div<{ index: number }>`
   position: sticky;
   top: 0;
-  height: 100vh;
+  height: 60vh;
   display: flex;
   align-items: center;
   z-index: ${(props) => 10 + props.index};
-  background: #fff;
+  background: #ffffff;
 
   @media (max-width: 768px) {
     height: 100vh;
