@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
 import { mockStrapiContent, StrapiCarouselItem } from '../data/strapi-types';
-import { strapiContent } from '../data/strapi-content';
+import { useStrapiCarousel } from '../hooks/useStrapiContent';
 import { getStrapiMedia } from '../config/strapi.config';
 
 const UpdatesSection = styled.section`
@@ -200,7 +200,9 @@ const Spacer = styled.div`
 
 const CarouselInterstitial: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
-  const carouselItems = strapiContent?.carousel || mockStrapiContent.carousel;
+
+  const { data: strapiData, loading } = useStrapiCarousel();
+  const carouselItems: StrapiCarouselItem[] = strapiData || mockStrapiContent.carousel || [];
 
   const handleLinkClick = (url: string) => {
     if (url.includes('/shop')) {
@@ -218,6 +220,17 @@ const CarouselInterstitial: RemoteBoundaryComponent = () => {
     'BRINGING HARVEST CLOSER: EXPANDING TO MORE CITIES NEAR YOU!',
     'LIMITED TIME OFFER',
   ];
+
+  // Show loading state
+  if (loading) {
+    return (
+      <UpdatesSection>
+        <SectionHeader>
+          <SectionTitle>Loading updates...</SectionTitle>
+        </SectionHeader>
+      </UpdatesSection>
+    );
+  }
 
   return (
     <UpdatesSection>

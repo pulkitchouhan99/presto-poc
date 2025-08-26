@@ -10,6 +10,8 @@ const theme: RemoteModuleRegistry = {
 
   // Carousel Interstitials
   StoreFrontCarouselInterstitials: [
+    createLazyRemoteBoundaryComponent(() => import('./components/social-login-modal')), // Social Login
+    createLazyRemoteBoundaryComponent(() => import('./components/runtime-test')), // TEST
     createLazyRemoteBoundaryComponent(() => import('./components/intro-interstitial')),
     createLazyRemoteBoundaryComponent(() => import('./components/carousel')),
   ],
@@ -19,6 +21,10 @@ const theme: RemoteModuleRegistry = {
     {
       path: '/about',
       component: createLazyRemoteBoundaryComponent(() => import('./pages/about')),
+    },
+    {
+      path: '/auth/callback',
+      component: createLazyRemoteBoundaryComponent(() => import('./pages/auth-callback')),
     },
   ],
 

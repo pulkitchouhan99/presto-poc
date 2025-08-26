@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "intro_sections",
+  "info": {
+    "singularName": "intro-section",
+    "pluralName": "intro-sections",
+    "displayName": "Intro Section",
+    "description": "Introduction/welcome sections for the website"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "text",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "layout": {
+      "type": "enumeration",
+      "enum": [
+        "images-bottom",
+        "images-top", 
+        "images-left",
+        "images-right",
+        "centered",
+        "no-images"
+      ],
+      "default": "images-bottom",
+      "required": true
+    },
+    "titleStyle": {
+      "type": "enumeration",
+      "enum": [
+        "small",
+        "medium", 
+        "large"
+      ],
+      "default": "small",
+      "required": true
+    },
+    "contentAlignment": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "center",
+        "right"
+      ],
+      "default": "left",
+      "required": true
+    },
+    "backgroundColor": {
+      "type": "string",
+      "default": "#ffffff"
+    },
+    "padding": {
+      "type": "string",
+      "required": false
+    },
+    "images": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "ctaButton": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.cta-button"
+    }
+  }
+}

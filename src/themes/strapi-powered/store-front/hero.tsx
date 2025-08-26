@@ -1,7 +1,8 @@
+import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
-import { mockStrapiContent } from '../data/strapi-types';
-import { strapiContent } from '../data/strapi-content';
+import { mockStrapiContent, StrapiHero } from '../data/strapi-types';
+import { useStrapiHero } from '../hooks/useStrapiContent';
 import { getStrapiMedia } from '../config/strapi.config';
 
 const fadeIn = keyframes`
@@ -228,7 +229,15 @@ const FloatingElement = styled.div`
 
 const StoreFrontHero: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
-  const heroData = strapiContent?.hero || mockStrapiContent.hero;
+
+  // Runtime CMS fetching - updates immediately!
+  const { data: strapiData, loading } = useStrapiHero();
+  const heroData: StrapiHero = strapiData || mockStrapiContent.hero || {
+    title: 'WELCOME TO\nPREMIUM\nCANNABIS',
+    subtitle: '',
+    eyebrow: '',
+    ctaButtons: []
+  };
 
   const handleCTAClick = (url: string) => {
     if (url === '/shop' || url.includes('shop')) {
@@ -237,6 +246,17 @@ const StoreFrontHero: RemoteBoundaryComponent = () => {
       actions.goToInfoPage();
     }
   };
+
+  // Show loading state
+  if (loading) {
+    return (
+      <HeroContainer>
+        <ContentWrapper>
+          <HeroContent></HeroContent>
+        </ContentWrapper>
+      </HeroContainer>
+    );
+  }
 
   return (
     <HeroContainer>
@@ -266,23 +286,18 @@ const StoreFrontHero: RemoteBoundaryComponent = () => {
             )}
           </MainTitle>
 
-          {heroData.subtitle && <Subtitle>{heroData.subtitle}</Subtitle>}
+          {heroData?.subtitle && <Subtitle>{heroData.subtitle}</Subtitle>}
 
           <ButtonGroup>
-            {heroData.ctaButtons?.map(
-              (
-                button: { label: string; url: string; variant?: 'primary' | 'secondary' | 'outline' },
-                index: number
-              ) => (
-                <CTAButton
-                  key={index}
-                  variant={button.variant as 'primary' | 'secondary'}
-                  onClick={() => handleCTAClick(button.url)}
-                >
-                  {button.label} →
-                </CTAButton>
-              )
-            )}
+            {heroData.ctaButtons?.map((button, index) => (
+              <CTAButton
+                key={index}
+                variant={button.variant as 'primary' | 'secondary'}
+                onClick={() => handleCTAClick(button.url)}
+              >
+                {button.label} →
+              </CTAButton>
+            ))}
           </ButtonGroup>
 
           <Stats>

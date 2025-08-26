@@ -1,0 +1,35 @@
+{
+  "intro-sections": [
+    {
+      "title": "WELCOME TO HARVEST CANNABIS, YOUR TRUSTED CANNABIS DISPENSARY OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.",
+      "content": [
+        {
+          "type": "paragraph",
+          "children": [
+            {
+              "type": "text",
+              "text": "At Harvest Cannabis",
+              "bold": true
+            },
+            {
+              "type": "text",
+              "text": ", we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to curating, delivering, and scaling a premium selection of flowers, edibles, and concentrates, ensuring the utmost satisfaction for our customers. We believe the truest measure of our success is the loyalty and trust our clients place in us, which is why over half of our visitors become repeat customers. Join us and experience why Harvest of Santa Monica is the preferred choice for cannabis connoisseurs."
+            }
+          ]
+        }
+      ],
+      "layout": "images-bottom",
+      "titleStyle": "small",
+      "contentAlignment": "left",
+      "backgroundColor": "#ffffff",
+      "padding": null,
+      "ctaButton": [
+        {
+          "label": "KNOW MORE US →",
+          "url": "/about",
+          "variant": "outline"
+        }
+      ]
+    }
+  ]
+}

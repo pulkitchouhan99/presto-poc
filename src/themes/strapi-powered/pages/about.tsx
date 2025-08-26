@@ -1,14 +1,12 @@
-import React from 'react';
 import styled from 'styled-components';
 import { RemoteBoundaryComponent } from '@dutchiesdk/ecommerce-extensions-sdk';
-import { mockStrapiContent } from '../data/strapi-types';
 
 const AboutContainer = styled.div`
   min-height: 100vh;
   background-color: #f8f9fa;
 `;
 
-const HeroSection = styled.section`
+const HeroSection = styled.section<{ backgroundImage?: string }>`
   position: relative;
   height: 300px;
   display: flex;
@@ -252,8 +250,11 @@ const About: RemoteBoundaryComponent = () => {
               <SectionTitle>{section.title}</SectionTitle>
               <SectionText>{section.content}</SectionText>
             </TextContent>
-            {section.image && section.layout !== 'centered' && (
-              <SectionImage src={section.image.url} alt={section.image.alternativeText || section.title} />
+            {'image' in section && section.image && 'url' in section.image && section.layout !== 'centered' && (
+              <SectionImage 
+                src={(section.image as { url: string; alternativeText?: string }).url} 
+                alt={(section.image as { url: string; alternativeText?: string }).alternativeText || section.title} 
+              />
             )}
           </SectionRow>
         ))}
@@ -280,6 +281,6 @@ const About: RemoteBoundaryComponent = () => {
   );
 };
 
-About.DataBridgeVersion = 1;
+About.DataBridgeVersion = '1';
 
 export default About;

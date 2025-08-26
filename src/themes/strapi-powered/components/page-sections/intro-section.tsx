@@ -4,10 +4,22 @@ import { useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
 import { getStrapiMedia } from '../../config/strapi.config';
 import { StrapiImage } from '../../data/strapi-types';
 
+interface StrapiRichTextChild {
+  type: 'text';
+  text: string;
+  bold?: boolean;
+  italic?: boolean;
+}
+
+interface StrapiRichTextBlock {
+  type: 'paragraph' | 'heading' | 'list';
+  children: StrapiRichTextChild[];
+}
+
 interface IntroSectionData {
   type?: 'intro';
   title: string;
-  content: string | any[];
+  content: string | StrapiRichTextBlock[];
   images: StrapiImage[];
   ctaButton?:
     | {
@@ -249,7 +261,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ data }) => {
   };
 
   // Function to convert Strapi rich text to string
-  const renderContent = (content: string | any[]) => {
+  const renderContent = (content: string | StrapiRichTextBlock[]) => {
     if (typeof content === 'string') {
       return content;
     }
@@ -259,7 +271,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ data }) => {
       return content
         .map((block) => {
           if (block.type === 'paragraph') {
-            return block.children.map((child: any) => child.text).join('');
+            return block.children.map((child) => child.text).join('');
           }
           return '';
         })

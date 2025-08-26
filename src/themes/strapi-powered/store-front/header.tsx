@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
 import { mockStrapiContent, StrapiLink } from '../data/strapi-types';
-import { strapiContent } from '../data/strapi-content';
+import { useStrapiHeader } from '../hooks/useStrapiContent';
 import { getStrapiMedia } from '../config/strapi.config';
+import { strapiAuth } from '../services/strapi-auth';
 
 const HeaderContainer = styled.header<{ scrolled: boolean }>`
   position: sticky;
@@ -184,16 +185,41 @@ const MobileMenuButton = styled.button`
 const StoreFrontHeader: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
   const [scrolled, setScrolled] = useState(false);
-  const headerData = strapiContent?.header || mockStrapiContent.header;
-  console.log('🚀 ~ StoreFrontHeader ~ headerData:', headerData);
+  const [user, setUser] = useState(strapiAuth.getCurrentUser());
+  
+  // Runtime CMS fetching - updates immediately!
+  const { data: strapiData, loading, error } = useStrapiHeader();
+  const headerData = strapiData || mockStrapiContent.header;
+  
+  console.log('Header - Strapi data:', strapiData);
+  console.log('Header - Loading:', loading);
+  console.log('Header - Error:', error);
+  console.log('Header - Current user:', user);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
+    const handleAuthSuccess = (event: MessageEvent) => {
+      if (event.data.type === 'AUTH_SUCCESS') {
+        setUser(event.data.user);
+      }
+    };
+
+    const handleStorageChange = () => {
+      setUser(strapiAuth.getCurrentUser());
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('message', handleAuthSuccess);
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('message', handleAuthSuccess);
+      window.removeEventListener('storage', handleStorageChange);
+    };
   }, []);
 
   const handleNavClick = (url: string) => {
@@ -233,7 +259,13 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
             <NavLink key={link.id} onClick={() => handleNavClick(link.url)}>
               {link.label}
             </NavLink>
-          ))}
+          )) || (
+            // Fallback navigation if no data
+            <>
+              <NavLink onClick={() => actions.goToProductList({})}>Shop</NavLink>
+              <NavLink onClick={() => actions.goToInfoPage()}>About</NavLink>
+            </>
+          )}
         </Navigation>
 
         <Actions>
@@ -244,6 +276,20 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
                 strokeLinejoin='round'
                 strokeWidth={2}
                 d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'
+              />
+            </svg>
+          </IconButton>
+
+          <IconButton 
+            onClick={() => user ? strapiAuth.logout() || setUser(null) : (window as { openSocialLogin?: () => void }).openSocialLogin?.()} 
+            title={user ? `Logout ${user.username}` : 'Login'}
+          >
+            <svg fill='none' stroke='currentColor' viewBox='0 0 24 24'>
+              <path
+                strokeLinecap='round'
+                strokeLinejoin='round'
+                strokeWidth={2}
+                d='M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z'
               />
             </svg>
           </IconButton>

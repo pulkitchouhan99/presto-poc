@@ -1,7 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
-import { mockStrapiContent } from '../data/strapi-types';
-import { strapiContent } from '../data/strapi-content';
+import { mockStrapiContent, StrapiFooter } from '../data/strapi-types';
+import { useStrapiFooter } from '../hooks/useStrapiContent';
 
 const FooterContainer = styled.footer`
   background-color: #000;
@@ -108,7 +109,18 @@ const SocialLink = styled.a`
 
 const StoreFrontFooter: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
-  const footerData = strapiContent?.footer || mockStrapiContent.footer;
+  
+  // Runtime CMS fetching - updates immediately!
+  const { data: strapiData, loading, error } = useStrapiFooter();
+  const footerData: StrapiFooter = strapiData || mockStrapiContent.footer || {
+    sections: [],
+    socialLinks: [],
+    copyright: '© 2024 Harvest Cannabis. All rights reserved.'
+  };
+  
+  console.log('Footer - Strapi data:', strapiData);
+  console.log('Footer - Loading:', loading);
+  console.log('Footer - Error:', error);
 
   const handleLinkClick = (url: string) => {
     if (url === '/shop' || url.startsWith('/shop/')) {
@@ -134,11 +146,11 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
             {footerData.description && <BrandDescription>{footerData.description}</BrandDescription>}
           </BrandSection>
 
-          {footerData.sections?.map((section: any, index: number) => (
+          {footerData.sections?.map((section, index) => (
             <FooterSection key={index}>
               <SectionTitle>{section?.title}</SectionTitle>
               <LinkList>
-                {section?.links?.map((link: any) => (
+                {section?.links?.map((link) => (
                   <LinkItem key={link.id}>
                     <FooterLink onClick={() => handleLinkClick(link.url)}>{link.label}</FooterLink>
                   </LinkItem>
@@ -153,7 +165,7 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
 
           {footerData.socialLinks && (
             <SocialLinks>
-              {footerData.socialLinks.map((social: any, index: number) => (
+              {footerData.socialLinks.map((social, index) => (
                 <SocialLink
                   key={index}
                   href={social.url}
@@ -172,6 +184,6 @@ const StoreFrontFooter: RemoteBoundaryComponent = () => {
   );
 };
 
-StoreFrontFooter.DataBridgeVersion = 1;
+StoreFrontFooter.DataBridgeVersion = '1';
 
 export default StoreFrontFooter;

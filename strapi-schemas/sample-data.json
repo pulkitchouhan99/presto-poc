@@ -1,0 +1,59 @@
+{
+  "intro-sections": [
+    {
+      "title": "WELCOME TO HARVEST CANNABIS",
+      "content": "**YOUR TRUSTED CANNABIS DISPENSARY** OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.\n\nAt Harvest Cannabis, we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to creating options, and crafting a premium selection of flowers, edibles, concentrates and wellness solutions to enhance your lifestyle.\n\nOne of the key measures of our success is the loyalty and trust our clients place in us, which is why your staff of our certified licensed cannabis consultants. Santa Monica is the preferred choice for cannabis connoisseurs.",
+      "layout": "centered",
+      "order": 1,
+      "isActive": true,
+      "slug": "welcome-to-harvest-cannabis",
+      "ctaButtons": [
+        {
+          "label": "Shop Now",
+          "url": "/shop",
+          "variant": "primary",
+          "size": "large",
+          "openInNewTab": false,
+          "isDisabled": false
+        },
+        {
+          "label": "Learn More",
+          "url": "/about",
+          "variant": "secondary",
+          "size": "large",
+          "openInNewTab": false,
+          "isDisabled": false
+        }
+      ],
+      "seo": {
+        "metaTitle": "Welcome to Harvest Cannabis - Premium Cannabis Dispensary",
+        "metaDescription": "Experience world-class cannabis retail with Harvest Cannabis. Premium flowers, edibles, concentrates and wellness solutions in Santa Monica.",
+        "keywords": "cannabis dispensary, premium cannabis, santa monica, flowers, edibles, concentrates"
+      }
+    },
+    {
+      "title": "PREMIUM QUALITY GUARANTEED",
+      "content": "## Lab-Tested Products\n\nEvery product in our dispensary undergoes rigorous testing to ensure safety, potency, and purity. We partner with licensed laboratories to provide you with detailed cannabinoid profiles and safety information.\n\n### What We Test For:\n- **Potency** - Accurate THC/CBD levels\n- **Pesticides** - Ensuring product safety\n- **Heavy Metals** - Clean, pure products\n- **Microbials** - Safe consumption",
+      "layout": "left-aligned",
+      "order": 2,
+      "isActive": true,
+      "slug": "premium-quality-guaranteed",
+      "ctaButtons": [
+        {
+          "label": "View Lab Results",
+          "url": "/lab-results",
+          "variant": "outline",
+          "size": "medium",
+          "icon": "microscope",
+          "openInNewTab": true,
+          "isDisabled": false
+        }
+      ],
+      "seo": {
+        "metaTitle": "Lab-Tested Cannabis Products - Quality Guaranteed",
+        "metaDescription": "All our cannabis products undergo rigorous lab testing for potency, safety, and purity. View detailed lab results and cannabinoid profiles.",
+        "keywords": "lab tested cannabis, cannabis safety, potency testing, pure cannabis"
+      }
+    }
+  ]
+}

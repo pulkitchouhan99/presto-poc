@@ -65,6 +65,55 @@ export interface StrapiCarouselItem {
   };
 }
 
+export interface StrapiIntroSection {
+  id: number;
+  documentId: string;
+  title: string;
+  content: Array<{
+    type: 'paragraph';
+    children: Array<{
+      type: 'text';
+      text: string;
+      bold?: boolean;
+    }>;
+  }>;
+  layout: 'images-bottom' | 'images-top' | 'images-left' | 'images-right' | 'centered' | 'no-images';
+  titleStyle: 'small' | 'medium' | 'large';
+  contentAlignment: 'left' | 'center' | 'right';
+  backgroundColor: string;
+  padding: string | null;
+  images: Array<{
+    id: number;
+    documentId: string;
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number | null;
+    height: number | null;
+    formats: any | null;
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl: string | null;
+    provider: string;
+    provider_metadata: any | null;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  }>;
+  ctaButton: Array<{
+    id: number;
+    label: string;
+    url: string;
+    variant: 'primary' | 'secondary' | 'outline';
+  }>;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
+
 export interface StrapiAboutPage {
   hero: {
     title: string;
@@ -152,6 +201,7 @@ export const mockStrapiContent = {
       "Welcome to Harvest Cannabis, your go-to source for premium cannabis in Santa Monica. Whether you're experienced or new to cannabis, we offer top-quality products and friendly service.",
     eyebrow: 'Premium Cannabis Retailer',
     backgroundColor: '#fafafa',
+    backgroundImage: { url: '/images/hero-bg.jpg', alternativeText: 'Hero Background' },
     ctaButtons: [
       {
         label: 'SHOP NOW',
@@ -192,28 +242,84 @@ export const mockStrapiContent = {
 
   // Intro/Welcome Section
   introSection: {
-    type: 'intro',
-    title: 'WELCOME TO HARVEST CANNABIS, YOUR TRUSTED CANNABIS DISPENSARY OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.',
-    content: `At Harvest Cannabis, we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to creating options, and crafting a premium selection of flowers, edibles, concentrates and wellness solutions to enhance your lifestyle. One of the key measures of our success is the loyalty and trust our clients place in us, which is why your staff of our certified licensed cannabis consultants. Santa Monica is the preferred choice for cannabis connoisseurs.`,
+    id: 3,
+    documentId: "x090fa1z0sksyc7deanqt34i",
+    title: "WELCOME TO HARVEST CANNABIS, YOUR TRUSTED CANNABIS DISPENSARY OFFERING A FRIENDLY SHOPPING EXPERIENCE AND A CURATED SELECTION OF PREMIUM CANNABIS PRODUCTS.",
+    content: [
+      {
+        type: "paragraph" as const,
+        children: [
+          {
+            type: "text" as const,
+            text: "At Harvest Cannabis",
+            bold: true
+          },
+          {
+            type: "text" as const,
+            text: ", we offer a world-class cannabis retail experience tailored to meet your unique preferences and needs. Our expert team is dedicated to curating, delivering, and scaling a premium selection of flowers, edibles, and concentrates, ensuring the utmost satisfaction for our customers. We believe the truest measure of our success is the loyalty and trust our clients place in us, which is why over half of our visitors become repeat customers. Join us and experience why Harvest of Santa Monica is the preferred choice for cannabis connoisseurs."
+          }
+        ]
+      }
+    ],
+    layout: "images-bottom",
+    titleStyle: "small",
+    contentAlignment: "left", 
+    backgroundColor: "#ffffff",
+    padding: null,
+    createdAt: "2025-08-25T11:14:06.188Z",
+    updatedAt: "2025-08-25T11:34:36.739Z",
+    publishedAt: "2025-08-25T11:34:36.750Z",
     images: [
       {
-        url: '/images/products-1.jpg',
-        alternativeText: 'Cannabis products display',
+        id: 14,
+        documentId: "pco49bb4rax70npn3lifar6c",
+        name: "6712bccf5cec05d78d86e295_Harvest-Of-Santa-Monica-Store-(4)1..2.avif",
+        alternativeText: null,
+        caption: null,
+        width: null,
+        height: null,
+        formats: null,
+        hash: "6712bccf5cec05d78d86e295_Harvest_Of_Santa_Monica_Store_4_1_2_91346362c9",
+        ext: ".avif",
+        mime: "image/avif",
+        size: 25.75,
+        url: "/uploads/6712bccf5cec05d78d86e295_Harvest_Of_Santa_Monica_Store_4_1_2_91346362c9.avif",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-08-25T11:12:13.871Z",
+        updatedAt: "2025-08-25T11:12:13.871Z",
+        publishedAt: "2025-08-25T11:12:13.871Z"
       },
       {
-        url: '/images/products-2.jpg', 
-        alternativeText: 'Premium cannabis selection',
-      },
+        id: 13,
+        documentId: "tqaow6ddh5wflil1seyq4pn1",
+        name: "6712bccf7b1e01b2371351f2_Harvest-Of-Santa-Monica-Store-(63)1.3.avif",
+        alternativeText: null,
+        caption: null,
+        width: null,
+        height: null,
+        formats: null,
+        hash: "6712bccf7b1e01b2371351f2_Harvest_Of_Santa_Monica_Store_63_1_3_676e67e0b0",
+        ext: ".avif",
+        mime: "image/avif",
+        size: 20.89,
+        url: "/uploads/6712bccf7b1e01b2371351f2_Harvest_Of_Santa_Monica_Store_63_1_3_676e67e0b0.avif",
+        previewUrl: null,
+        provider: "local",
+        provider_metadata: null,
+        createdAt: "2025-08-25T11:12:00.464Z",
+        updatedAt: "2025-08-25T11:12:00.464Z",
+        publishedAt: "2025-08-25T11:12:00.464Z"
+      }
     ],
-    ctaButton: {
-      label: 'KNOW MORE US →',
-      url: '/about',
-      variant: 'outline',
-    },
-    layout: 'images-bottom',
-    titleStyle: 'large',
-    contentAlignment: 'left',
-    backgroundColor: '#ffffff',
-    padding: 'large',
-  },
+    ctaButton: [
+      {
+        id: 18,
+        label: "KNOW MORE US →",
+        url: "/about",
+        variant: "outline" as const
+      }
+    ]
+  } as StrapiIntroSection,
 };
