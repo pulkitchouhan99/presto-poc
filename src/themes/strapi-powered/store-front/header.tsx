@@ -184,11 +184,11 @@ const MobileMenuButton = styled.button`
 const StoreFrontHeader: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
   const [scrolled, setScrolled] = useState(false);
-  
+
   // Runtime CMS fetching - updates immediately!
   const { data: strapiData, loading, error } = useStrapiHeader();
   const headerData = strapiData || mockStrapiContent.header;
-  
+
   console.log('Header - Strapi data:', strapiData);
   console.log('Header - Loading:', loading);
   console.log('Header - Error:', error);
@@ -213,6 +213,8 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
       actions.goToStoreLocator();
     }
   };
+
+  console.log('headerData', headerData);
 
   return (
     <HeaderContainer scrolled={scrolled}>
@@ -260,10 +262,7 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
             </svg>
           </IconButton>
 
-          <IconButton 
-            onClick={() => actions.goToLogin()} 
-            title="Login with Dutchie"
-          >
+          <IconButton onClick={() => actions.goToLogin()} title='Login with Dutchie'>
             <svg fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path
                 strokeLinecap='round'

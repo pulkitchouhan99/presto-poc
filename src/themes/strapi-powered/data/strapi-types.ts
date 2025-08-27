@@ -114,6 +114,27 @@ export interface StrapiIntroSection {
   publishedAt: string;
 }
 
+export interface StrapiProduct {
+  id: number;
+  name: string;
+  brand: string;
+  category: 'flower' | 'edibles' | 'concentrates' | 'pre-rolls' | 'vapes' | 'topicals' | 'accessories';
+  price: number;
+  thc?: string;
+  cbd?: string;
+  description?: string;
+  images: Array<{
+    id: number;
+    url: string;
+    alternativeText?: string;
+  }>;
+  featured: boolean;
+  badge?: 'new' | 'sale' | 'limited' | 'bestseller' | 'exclusive';
+  discount?: number;
+  slug: string;
+  order: number;
+}
+
 export interface StrapiAboutPage {
   hero: {
     title: string;

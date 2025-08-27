@@ -1,0 +1,101 @@
+{
+  "products": [
+    {
+      "name": "Blue Dream Premium Flower",
+      "brand": "HARVEST SELECT",
+      "category": "flower",
+      "price": 45.00,
+      "thc": "24.5%",
+      "cbd": "0.8%",
+      "description": "Blue Dream, a sativa-dominant hybrid originating in California, has achieved legendary status among West Coast strains. Crossing a Blueberry indica with the sativa Haze, Blue Dream balances full-body relaxation with gentle cerebral invigoration.",
+      "featured": true,
+      "badge": "bestseller",
+      "order": 1
+    },
+    {
+      "name": "Strawberry Gummies 100mg",
+      "brand": "SWEET LEAF",
+      "category": "edibles",
+      "price": 25.00,
+      "thc": "100mg",
+      "cbd": "0mg",
+      "description": "Delicious strawberry-flavored gummies infused with premium THC extract. Each package contains 10 gummies with 10mg THC per piece for precise dosing.",
+      "featured": true,
+      "badge": "new",
+      "discount": 20,
+      "order": 2
+    },
+    {
+      "name": "OG Kush Live Resin",
+      "brand": "PURE EXTRACTS",
+      "category": "concentrates",
+      "price": 65.00,
+      "thc": "82.3%",
+      "cbd": "1.2%",
+      "description": "Premium live resin extracted from fresh-frozen OG Kush flowers. Experience the full terpene profile and potent effects of this classic strain.",
+      "featured": true,
+      "badge": "limited",
+      "order": 3
+    },
+    {
+      "name": "Hybrid Pre-Roll Pack",
+      "brand": "HARVEST ROLLS",
+      "category": "pre-rolls",
+      "price": 35.00,
+      "thc": "22.0%",
+      "cbd": "1.5%",
+      "description": "Convenience meets quality with our expertly rolled hybrid joints. Each pack contains 5 pre-rolls made from premium flower.",
+      "featured": true,
+      "badge": "sale",
+      "discount": 15,
+      "order": 4
+    },
+    {
+      "name": "CBD Wellness Vape",
+      "brand": "WELLNESS CO",
+      "category": "vapes",
+      "price": 40.00,
+      "thc": "5.0%",
+      "cbd": "85.0%",
+      "description": "High-CBD vape cartridge designed for wellness and relaxation. Perfect ratio of CBD to THC for therapeutic benefits without intense psychoactive effects.",
+      "featured": true,
+      "order": 5
+    },
+    {
+      "name": "Sour Diesel Flower",
+      "brand": "TOP SHELF",
+      "category": "flower",
+      "price": 55.00,
+      "thc": "26.8%",
+      "cbd": "0.5%",
+      "description": "Legendary sativa strain known for its energizing and dreamy cerebral effects. Features a pungent diesel aroma with hints of citrus.",
+      "featured": true,
+      "badge": "exclusive",
+      "order": 6
+    },
+    {
+      "name": "Chocolate Bar 200mg",
+      "brand": "CANNA SWEETS",
+      "category": "edibles",
+      "price": 35.00,
+      "thc": "200mg",
+      "cbd": "10mg",
+      "description": "Premium dark chocolate infused with cannabis extract. Each bar is divided into 20 pieces containing 10mg THC each.",
+      "featured": true,
+      "order": 7
+    },
+    {
+      "name": "Purple Punch Shatter",
+      "brand": "CRYSTAL CLEAR",
+      "category": "concentrates",
+      "price": 50.00,
+      "thc": "78.5%",
+      "cbd": "0.3%",
+      "description": "Glass-like shatter extracted from Purple Punch flowers. Known for its grape and berry flavors with sedating effects.",
+      "featured": true,
+      "badge": "sale",
+      "discount": 25,
+      "order": 8
+    }
+  ]
+}
