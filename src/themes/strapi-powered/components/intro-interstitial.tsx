@@ -1,4 +1,3 @@
-import React from 'react';
 import { RemoteBoundaryComponent } from '@dutchiesdk/ecommerce-extensions-sdk';
 import IntroSection from './page-sections/intro-section';
 import { mockStrapiContent } from '../data/strapi-types';
@@ -14,7 +13,8 @@ const IntroInterstitial: RemoteBoundaryComponent = () => {
   console.log('IntroSection - Error:', error);
 
   // Use Strapi data if available, fallback to mock data
-  const introData = strapiData?.[0] || mockStrapiContent.introSection;
+  // Handle both single object and array responses from Strapi
+  const introData = Array.isArray(strapiData) ? strapiData[0] : strapiData || mockStrapiContent.introSection;
 
   // Show loading state
   if (loading) {

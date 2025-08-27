@@ -4,7 +4,6 @@ import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-ex
 import { mockStrapiContent, StrapiLink } from '../data/strapi-types';
 import { useStrapiHeader } from '../hooks/useStrapiContent';
 import { getStrapiMedia } from '../config/strapi.config';
-import { strapiAuth } from '../services/strapi-auth';
 
 const HeaderContainer = styled.header<{ scrolled: boolean }>`
   position: sticky;
@@ -185,7 +184,6 @@ const MobileMenuButton = styled.button`
 const StoreFrontHeader: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
   const [scrolled, setScrolled] = useState(false);
-  const [user, setUser] = useState(strapiAuth.getCurrentUser());
   
   // Runtime CMS fetching - updates immediately!
   const { data: strapiData, loading, error } = useStrapiHeader();
@@ -194,32 +192,14 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
   console.log('Header - Strapi data:', strapiData);
   console.log('Header - Loading:', loading);
   console.log('Header - Error:', error);
-  console.log('Header - Current user:', user);
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
 
-    const handleAuthSuccess = (event: MessageEvent) => {
-      if (event.data.type === 'AUTH_SUCCESS') {
-        setUser(event.data.user);
-      }
-    };
-
-    const handleStorageChange = () => {
-      setUser(strapiAuth.getCurrentUser());
-    };
-
     window.addEventListener('scroll', handleScroll);
-    window.addEventListener('message', handleAuthSuccess);
-    window.addEventListener('storage', handleStorageChange);
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('message', handleAuthSuccess);
-      window.removeEventListener('storage', handleStorageChange);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (url: string) => {
@@ -281,8 +261,8 @@ const StoreFrontHeader: RemoteBoundaryComponent = () => {
           </IconButton>
 
           <IconButton 
-            onClick={() => user ? strapiAuth.logout() || setUser(null) : (window as { openSocialLogin?: () => void }).openSocialLogin?.()} 
-            title={user ? `Logout ${user.username}` : 'Login'}
+            onClick={() => actions.goToLogin()} 
+            title="Login with Dutchie"
           >
             <svg fill='none' stroke='currentColor' viewBox='0 0 24 24'>
               <path

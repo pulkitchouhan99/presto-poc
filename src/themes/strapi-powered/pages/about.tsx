@@ -112,12 +112,6 @@ const SectionText = styled.p`
   white-space: pre-wrap;
 `;
 
-const SectionImage = styled.img`
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-`;
 
 const TeamSection = styled.section`
   background-color: white;
@@ -250,12 +244,7 @@ const About: RemoteBoundaryComponent = () => {
               <SectionTitle>{section.title}</SectionTitle>
               <SectionText>{section.content}</SectionText>
             </TextContent>
-            {'image' in section && section.image && 'url' in section.image && section.layout !== 'centered' && (
-              <SectionImage 
-                src={(section.image as { url: string; alternativeText?: string }).url} 
-                alt={(section.image as { url: string; alternativeText?: string }).alternativeText || section.title} 
-              />
-            )}
+            {/* Image would go here if section had image property */}
           </SectionRow>
         ))}
       </ContentSection>

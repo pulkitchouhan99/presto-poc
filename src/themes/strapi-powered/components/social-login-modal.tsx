@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { RemoteBoundaryComponent, useDataBridge } from '@dutchiesdk/ecommerce-extensions-sdk';
-import EmailLoginForm from './email-login-form';
 
 const fadeIn = keyframes`
   from {
@@ -177,37 +176,48 @@ interface SocialLoginModalProps {
 
 const SocialLoginModal: React.FC<SocialLoginModalProps> = ({ isOpen, onClose }) => {
   const { actions } = useDataBridge();
-  const [showEmailForm, setShowEmailForm] = useState(false);
 
   const handleGoogleLogin = async () => {
     console.log('Google login clicked');
-    try {
-      // Direct Google OAuth without callback parameter
+    
+    // Check if we're in development or production
+    const isDevelopment = window.location.hostname === 'localhost';
+    
+    if (isDevelopment) {
+      // In development, show what would happen
+      alert('In production, this would redirect to Dutchie Google OAuth login');
+      console.log('Development mode: Would redirect to Dutchie Google login');
+      
+      // For testing, you can still use your Strapi auth
       window.location.href = 'http://localhost:1337/api/connect/google';
-    } catch (error) {
-      console.error('Google login error:', error);
+    } else {
+      // In production, Dutchie handles OAuth directly
+      // Option 1: If Dutchie supports direct OAuth URLs
+      window.location.href = '/auth/google'; // Dutchie's Google OAuth endpoint
+      
+      // Option 2: If Dutchie only has a general login page
+      // actions.goToLogin();
     }
+    
+    onClose();
   };
 
   const handleAppleLogin = async () => {
-    console.log('Apple login clicked');
+    console.log('Apple login clicked - redirecting to Dutchie login');
     try {
-      // Redirect to Strapi Apple OAuth endpoint
-      window.location.href = 'http://localhost:1337/api/connect/apple';
-      // Note: Apple provider needs to be configured in Strapi
+      // Use Dutchie's built-in login system for Apple as well
+      actions.goToLogin();
+      onClose(); // Close our custom modal
     } catch (error) {
-      console.error('Apple login error:', error);
+      console.error('Dutchie login error:', error);
     }
   };
 
   const handleEmailLogin = () => {
-    console.log('Email login clicked');
-    setShowEmailForm(true);
-  };
-
-  const handleAuthSuccess = () => {
-    console.log('Authentication successful');
-    onClose();
+    console.log('Email login clicked - redirecting to Dutchie login');
+    // For consistency, also use Dutchie's login for email
+    actions.goToLogin();
+    onClose(); // Close our custom modal
   };
 
   // Prevent closing when clicking modal content
@@ -220,40 +230,31 @@ const SocialLoginModal: React.FC<SocialLoginModalProps> = ({ isOpen, onClose }) 
       <ModalContent onClick={handleModalClick}>
         <CloseButton onClick={onClose}>✕</CloseButton>
         
-        {showEmailForm ? (
-          <EmailLoginForm 
-            onSuccess={handleAuthSuccess}
-            onClose={() => setShowEmailForm(false)}
-          />
-        ) : (
-          <>
-            <Header>
-              <Icon>✨</Icon>
-              <Title>Log in for the best experience</Title>
-              <Description>
-                Enjoy personalized recommendations, faster checkout, and quick reordering of your favorites.
-              </Description>
-            </Header>
+        <Header>
+          <Icon>✨</Icon>
+          <Title>Log in for the best experience</Title>
+          <Description>
+            Enjoy personalized recommendations, faster checkout, and quick reordering of your favorites.
+          </Description>
+        </Header>
 
-            <ButtonGroup>
-              <SocialButton onClick={handleGoogleLogin}>
-                <GoogleIcon />
-                Continue with Google
-              </SocialButton>
+        <ButtonGroup>
+          <SocialButton onClick={handleGoogleLogin}>
+            <GoogleIcon />
+            Continue with Google
+          </SocialButton>
 
-              <SocialButton onClick={handleAppleLogin}>
-                <AppleIcon />
-                Continue with Apple
-              </SocialButton>
-            </ButtonGroup>
+          <SocialButton onClick={handleAppleLogin}>
+            <AppleIcon />
+            Continue with Apple
+          </SocialButton>
+        </ButtonGroup>
 
-            <div style={{ textAlign: 'center' }}>
-              <EmailLink onClick={handleEmailLogin}>
-                Log in or sign up with email
-              </EmailLink>
-            </div>
-          </>
-        )}
+        <div style={{ textAlign: 'center' }}>
+          <EmailLink onClick={handleEmailLogin}>
+            Log in or sign up with email
+          </EmailLink>
+        </div>
       </ModalContent>
     </ModalOverlay>
   );
