@@ -37,7 +37,6 @@ export function useStrapiContent<T>(endpoint: string, fallbackData?: T): StrapiC
         }
 
         const result = await response.json();
-        console.log('Strapi API response:', result);
         setData(result.data);
       } catch (err) {
         console.error('Strapi fetch error:', err);
@@ -59,7 +58,14 @@ export function useStrapiContent<T>(endpoint: string, fallbackData?: T): StrapiC
 }
 
 // Import types
-import { StrapiHeader, StrapiHero, StrapiIntroSection, StrapiCarouselItem, StrapiFooter, StrapiProduct } from '../data/strapi-types';
+import {
+  StrapiHeader,
+  StrapiHero,
+  StrapiIntroSection,
+  StrapiCarouselItem,
+  StrapiFooter,
+  StrapiProduct,
+} from '../data/strapi-types';
 
 // Specialized hooks for different content types
 export const useStrapiHeader = () => useStrapiContent<StrapiHeader>('/header?populate=*');
@@ -67,4 +73,5 @@ export const useStrapiHero = () => useStrapiContent<StrapiHero>('/homepage-hero?
 export const useStrapiIntroSection = () => useStrapiContent<StrapiIntroSection>('/intro-sections?populate=*');
 export const useStrapiCarousel = () => useStrapiContent<StrapiCarouselItem[]>('/carousel-items?populate=*&sort=order');
 export const useStrapiFooter = () => useStrapiContent<StrapiFooter>('/footer?populate=*');
-export const useStrapiProducts = () => useStrapiContent<StrapiProduct[]>('/products?populate=*&filters[featured][$eq]=true&sort=order');
+export const useStrapiProducts = () =>
+  useStrapiContent<StrapiProduct[]>('/products?populate=*&filters[featured][$eq]=true&sort=order');

@@ -7,11 +7,6 @@ const IntroInterstitial: RemoteBoundaryComponent = () => {
   // Runtime CMS fetching - updates immediately without rebuilds!
   const { data: strapiData, loading, error } = useStrapiIntroSection();
 
-  // Debug logs
-  console.log('IntroSection - Strapi data:', strapiData);
-  console.log('IntroSection - Loading:', loading);
-  console.log('IntroSection - Error:', error);
-
   // Use Strapi data if available, fallback to mock data
   // Handle both single object and array responses from Strapi
   const introData = Array.isArray(strapiData) ? strapiData[0] : strapiData || mockStrapiContent.introSection;

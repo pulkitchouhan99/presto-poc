@@ -184,18 +184,24 @@ const SocialLoginModal: React.FC<SocialLoginModalProps> = ({ isOpen, onClose }) 
     const isDevelopment = window.location.hostname === 'localhost';
     
     if (isDevelopment) {
-      // In development, show what would happen
-      alert('In production, this would redirect to Dutchie Google OAuth login');
-      console.log('Development mode: Would redirect to Dutchie Google login');
-      
-      // For testing, you can still use your Strapi auth
+      // Development: Test with Strapi for now
+      console.log('Development mode: Using Strapi OAuth for testing');
       window.location.href = 'http://localhost:1337/api/connect/google';
     } else {
-      // In production, Dutchie handles OAuth directly
-      // Option 1: If Dutchie supports direct OAuth URLs
-      window.location.href = '/auth/google'; // Dutchie's Google OAuth endpoint
+      // Production: Try multiple approaches based on common Dutchie patterns
       
-      // Option 2: If Dutchie only has a general login page
+      // Approach 1: Direct OAuth URL (most likely)
+      const possibleGoogleUrls = [
+        '/auth/google',
+        '/login/google', 
+        '/oauth/google',
+        '/api/auth/google'
+      ];
+      
+      // Try the first one - most common pattern
+      window.location.href = possibleGoogleUrls[0];
+      
+      // Fallback: If direct OAuth doesn't work, use general login
       // actions.goToLogin();
     }
     

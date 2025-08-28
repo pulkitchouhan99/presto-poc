@@ -109,18 +109,15 @@ const SocialLink = styled.a`
 
 const StoreFrontFooter: RemoteBoundaryComponent = () => {
   const { actions } = useDataBridge();
-  
+
   // Runtime CMS fetching - updates immediately!
-  const { data: strapiData, loading, error } = useStrapiFooter();
-  const footerData: StrapiFooter = strapiData || mockStrapiContent.footer || {
-    sections: [],
-    socialLinks: [],
-    copyright: '© 2024 Harvest Cannabis. All rights reserved.'
-  };
-  
-  console.log('Footer - Strapi data:', strapiData);
-  console.log('Footer - Loading:', loading);
-  console.log('Footer - Error:', error);
+  const { data: strapiData } = useStrapiFooter();
+  const footerData: StrapiFooter = strapiData ||
+    mockStrapiContent.footer || {
+      sections: [],
+      socialLinks: [],
+      copyright: '© 2024 Harvest Cannabis. All rights reserved.',
+    };
 
   const handleLinkClick = (url: string) => {
     if (url === '/shop' || url.startsWith('/shop/')) {
